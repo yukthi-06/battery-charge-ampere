@@ -1,0 +1,254 @@
+create an android application which is basically a charger ampere value display
+When user connects the battery charger, the app should measure the ampere it is charging at and display on screen
+It should show average value and current value.
+It should show the time duration the measurement sis taken and used for average calculations
+Ther should be a button to rest calculations and star afresh
+
+It have back arrow/buttons on each Settings page
+
+Develop the app in java (not kotlin)
+Need a left side menu with items like "Settings", "Help", "About", with their own pages
+They should have back arrow on top to return to main menu.
+
+Give it as a single prompt to give to an agent to achieve this
+
+
+===========================================================================
+
+Here is a single comprehensive prompt you can give to an AI coding agent:
+
+Create a complete Android application in Java (NOT Kotlin) called "Charge Amp Meter".
+
+## Purpose
+
+The application should detect when a charger is connected and continuously measure and display the battery charging current in amperes (A) and milliamperes (mA) using Android's BatteryManager APIs.
+
+## Main Requirements
+
+### Main Screen
+
+Display the following information:
+
+1. Current Charging Value
+
+   * Real-time charging current.
+   * Show in mA and A.
+   * Update every second.
+
+2. Average Charging Value
+
+   * Calculate the average charging current from the beginning of the measurement session.
+   * Show in mA and A.
+
+3. Measurement Duration
+
+   * Display elapsed measurement time in:
+
+     * Hours
+     * Minutes
+     * Seconds
+
+4. Charger Status
+
+   * Connected
+   * Disconnected
+   * Charging
+   * Not Charging
+
+5. Reset Button
+
+   * A button labeled "Reset Measurement".
+   * When pressed:
+
+     * Reset average calculations.
+     * Reset timer.
+     * Clear all collected samples.
+     * Start a fresh measurement session immediately.
+
+### Charging Current Measurement
+
+Use:
+
+* BatteryManager.BATTERY_PROPERTY_CURRENT_NOW
+* BatteryManager.BATTERY_PROPERTY_CURRENT_AVERAGE (when available)
+
+Implement device compatibility handling because some devices return:
+
+* Positive values
+* Negative values
+* Microamps instead of milliamps
+
+Normalize values and display correctly.
+
+### Data Sampling
+
+* Sample current every 1 second.
+* Store samples in memory.
+* Average value should be calculated from all samples collected since the last reset.
+
+Formula:
+
+Average Current =
+(Sum of all sampled currents) / (Number of samples)
+
+### User Interface
+
+Use:
+
+* Material Design
+* AppCompat
+* Navigation Drawer
+
+Layout should be clean and professional.
+
+Main screen should contain:
+
+* Current Value Card
+* Average Value Card
+* Measurement Duration Card
+* Charger Status Card
+* Reset Button
+
+## Navigation Drawer (Left Side Menu)
+
+Implement a left-side Navigation Drawer with the following items:
+
+1. Home
+2. Settings
+3. Help
+4. About
+
+### Navigation Requirements
+
+* Drawer opens from the left.
+* Hamburger menu icon on Home screen.
+* Each page must have its own Toolbar.
+* Each page except Home must display a Back Arrow in the Toolbar.
+* Pressing the Back Arrow returns to Home screen.
+* Android back button should also return correctly.
+
+## Settings Page
+
+Create a separate Settings Activity.
+
+Options:
+
+1. Sampling Interval
+
+   * 1 second
+   * 2 seconds
+   * 5 seconds
+
+2. Keep Screen On
+
+   * Switch
+
+3. Display Unit
+
+   * mA
+   * A
+   * Both
+
+4. Dark Mode
+
+   * Switch
+
+Persist settings using SharedPreferences.
+
+Toolbar requirements:
+
+* Back Arrow on top.
+* Clicking Back Arrow returns to Home.
+
+## Help Page
+
+Create a separate Help Activity.
+
+Explain:
+
+* What charging current means.
+* How measurements work.
+* Why readings vary by device.
+* Meaning of average current.
+
+Toolbar requirements:
+
+* Back Arrow on top.
+* Clicking Back Arrow returns to Home.
+
+## About Page
+
+Create a separate About Activity.
+
+Display:
+
+* App Name
+* Version
+* Description
+* Developer Information placeholder
+
+Toolbar requirements:
+
+* Back Arrow on top.
+* Clicking Back Arrow returns to Home.
+
+## Architecture
+
+Use:
+
+* Java
+* Android SDK
+* AppCompat
+* Material Components
+
+Recommended structure:
+
+* MainActivity
+* SettingsActivity
+* HelpActivity
+* AboutActivity
+
+Helpers:
+
+* ChargingMonitor
+* PreferenceManager
+* TimerManager
+
+## Permissions
+
+Only request permissions if truly required.
+
+Do not request unnecessary permissions.
+
+## Error Handling
+
+Handle:
+
+* Devices that do not support charging current reporting.
+* Null values.
+* Unsupported BatteryManager properties.
+
+Show:
+"Charging current information is not available on this device."
+
+instead of crashing.
+
+## Deliverables
+
+Generate:
+
+1. Complete Android Studio project.
+2. Java source code for all activities.
+3. XML layouts.
+4. Navigation Drawer implementation.
+5. Toolbar with Back Arrow implementation.
+6. SharedPreferences settings storage.
+7. Charging current measurement logic.
+8. Timer and averaging logic.
+9. AndroidManifest.xml.
+10. Gradle build files.
+11. Comments throughout code explaining functionality.
+
+The project must compile and run in Android Studio without requiring Kotlin. Use Java only.
+
+This prompt is detailed enough for a coding agent to generate the full Android Studio project with the charging-current measurement logic, navigation drawer, settings/help/about pages, back-arrow navigation, timer, averaging calculations, and Java-only implementation.
