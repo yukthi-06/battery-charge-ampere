@@ -67,7 +67,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public void onReceive(Context context, Intent intent) {
             updateChargerStatusUI();
-            resetMeasurementSession();
+            if (Intent.ACTION_POWER_CONNECTED.equals(intent.getAction())) {
+                resetMeasurementSession();
+            } else {
+                performSampleUpdate();
+            }
         }
     };
 
