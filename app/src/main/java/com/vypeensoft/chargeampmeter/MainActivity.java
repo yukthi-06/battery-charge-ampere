@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView tvDuration;
     private TextView tvChargerStatus;
     private TextView tvChargerSource;
+    private TextView tvBatteryLevel;
     private ImageView ivStatusIcon;
     private MaterialButton btnReset;
 
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tvChargerStatus = findViewById(R.id.tv_charger_status);
         tvChargerSource = findViewById(R.id.tv_charger_source);
         ivStatusIcon = findViewById(R.id.iv_status_icon);
+        tvBatteryLevel = findViewById(R.id.tv_battery_level);
         btnReset = findViewById(R.id.btn_reset_measurement);
 
         // Setup Reset Button
@@ -188,6 +190,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         } else {
             tvUnsupportedError.setVisibility(View.GONE);
+        }
+
+        // Update Battery Level UI
+        int batteryLevel = chargingMonitor.getBatteryLevel();
+        if (batteryLevel != -1) {
+            tvBatteryLevel.setText(batteryLevel + "%");
+        } else {
+            tvBatteryLevel.setText(R.string.unit_not_available);
         }
 
         // Format and display real-time current values

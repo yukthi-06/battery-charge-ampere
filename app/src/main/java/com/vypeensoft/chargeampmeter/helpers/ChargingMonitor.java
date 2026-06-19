@@ -177,6 +177,23 @@ public class ChargingMonitor {
         return new ChargerInfo(isCharging || chargePlug > 0, statusStr, source);
     }
 
+    /**
+     * Retrieves the current battery charge level as a percentage.
+     */
+    public int getBatteryLevel() {
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = context.registerReceiver(null, ifilter);
+        if (batteryStatus == null) {
+            return -1;
+        }
+        int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        if (level == -1 || scale == -1) {
+            return -1;
+        }
+        return (int) ((level / (float) scale) * 100);
+    }
+
     public static class ChargerInfo {
         public final boolean isConnected;
         public final String status;
