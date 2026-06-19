@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TodoMaster"
+rootProject.name = "Charge Amp Meter"
 include ':app'
