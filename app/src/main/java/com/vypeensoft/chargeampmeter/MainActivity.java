@@ -147,8 +147,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void performSampleUpdate() {
-        // Record current sample
-        double currentNow = chargingMonitor.recordSample();
+        ChargingMonitor.ChargerInfo info = chargingMonitor.getChargerInfo();
+        double currentNow;
+
+        if (info.isConnected) {
+            // Charging: record sample for average, run timer, restore colors
+            currentNow = chargingMonitor.recordSample();
+            if (!timerManager.isRunning()) {
+                timerManager.start();
+            }
+
+            int textPrimaryColor = ContextCompat.getColor(this, preferenceManager.isDarkMode() ? R.color.darkTextPrimary : R.color.lightTextPrimary);
+            int textSecondaryColor = ContextCompat.getColor(this, preferenceManager.isDarkMode() ? R.color.darkTextSecondary : R.color.lightTextSecondary);
+            tvDuration.setTextColor(textPrimaryColor);
+            tvAverageValue.setTextColor(textPrimaryColor);
+            tvAverageSubValue.setTextColor(textSecondaryColor);
+        } else {
+            // Disconnected: just query currentNow, do NOT add to samples, stop timer, set gray colors
+            currentNow = chargingMonitor.getCurrentNow();
+            timerManager.stop();
+
+            int mutedColor = ContextCompat.getColor(this, R.color.colorDisconnected);
+            tvDuration.setTextColor(mutedColor);
+            tvAverageValue.setTextColor(mutedColor);
+            tvAverageSubValue.setTextColor(mutedColor);
+        }
+
         double averageCurrent = chargingMonitor.getSessionAverageCurrent();
 
         // Handle unsupported device error (returns NaN on current now check)
@@ -222,7 +246,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void resetMeasurementSession() {
         chargingMonitor.clearSamples();
         timerManager.reset();
-        timerManager.start();
+        
+        ChargingMonitor.ChargerInfo info = chargingMonitor.getChargerInfo();
+        if (info.isConnected) {
+            timerManager.start();
+        }
 
         // Perform immediate update for visual feedback
         performSampleUpdate();
@@ -239,7 +267,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         updateKeepScreenOnFlag();
         updateChargerStatusUI();
         startSamplingLoop();
-        timerManager.start();
+
+        ChargingMonitor.ChargerInfo info = chargingMonitor.getChargerInfo();
+        if (info.isConnected) {
+            timerManager.start();
+        } else {
+            timerManager.stop();
+        }
 
         // Register power connection broadcast filters
         IntentFilter filter = new IntentFilter();
