@@ -55,5 +55,9 @@
     <string name="about_description">A utility designed to continuously measure, sample, and display the battery charging current. Built using standard BatteryManager APIs to assist in evaluating chargers and cable performance.</string>
     <string name="about_version">Version 1.0.0 (Java Edition)</string>
     <string name="about_developer">Developer: VypeenSoft Inc.</string>
+    <string name="about_purpose_title">App Purpose</string>
+    <string name="about_purpose_text">Charge Amp Meter continuously monitors electrical current flowing to and from the battery using Android system APIs to help you evaluate the performance of your chargers and charging cables.</string>
+    <string name="about_features_title">Key Features</string>
+    <string name="about_features_text">• Real-time Current: Continuously displays current in both mA and A.\n• Session Average: Tracks average charging rate since the last reset.\n• Battery Level: Live view of the current battery percentage.\n• Duration: Monitors elapsed charging session time.\n• Smart Pause: Automatically freezes timer and averages on disconnect.\n• Customizations: Options for sampling rate, screen lock, and themes.</string>
     <string name="about_copyright">© 2026 VypeenSoft. All rights reserved.</string>
 </resources>
