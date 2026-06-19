@@ -72,9 +72,15 @@ public class ChargingMonitor {
             current = current / 1000.0;
         }
 
-        // On many devices, charging current is reported as negative because of charging direction.
-        // We normalize it to positive since the user is measuring "charge flow magnitude".
-        return Math.abs(current);
+        // Check if charger is connected
+        ChargerInfo chargerInfo = getChargerInfo();
+        if (chargerInfo.isConnected) {
+            // Charging: force positive
+            return Math.abs(current);
+        } else {
+            // Discharging: force negative (representing energy leaving the battery)
+            return -Math.abs(current);
+        }
     }
 
     /**
