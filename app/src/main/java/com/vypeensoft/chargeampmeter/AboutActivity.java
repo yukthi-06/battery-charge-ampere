@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import android.widget.TextView;
 import com.vypeensoft.chargeampmeter.helpers.PreferenceManager;
 
 public class AboutActivity extends AppCompatActivity {
@@ -29,6 +30,12 @@ public class AboutActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        TextView tvBuildInfo = findViewById(R.id.tvBuildInfo);
+        String buildInfoStr = "Build Date: " + BuildConfig.BUILD_TIMESTAMP + "\n" +
+                              "Commit SHA: " + (BuildConfig.GIT_SHA_FULL.isEmpty() ? "N/A" : BuildConfig.GIT_SHA_FULL) + "\n" +
+                              "Git Tag: " + (BuildConfig.GIT_TAG.isEmpty() ? "N/A" : BuildConfig.GIT_TAG);
+        tvBuildInfo.setText(buildInfoStr);
     }
 
     @Override
