@@ -13,7 +13,7 @@
     <!-- Status Indicator Colors -->
     <color name="colorCharging">#00E676</color>
     <color name="colorNotCharging">#FF7043</color>
-    <color name="colorDisconnected">#B0BEC5</color>
+    <color name="colorDisconnected">#FF5252</color>
     <color name="colorUnknown">#90A4AE</color>
 
     <!-- Dark Mode Specific Colors -->

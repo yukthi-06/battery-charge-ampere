@@ -245,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         ivStatusIcon.setImageTintList(ColorStateList.valueOf(statusColor));
+        tvChargerStatus.setTextColor(statusColor);
     }
 
     private void resetMeasurementSession() {
