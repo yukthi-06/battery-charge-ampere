@@ -146,7 +146,7 @@ public class ChargingMonitor {
         Intent batteryStatus = context.registerReceiver(null, ifilter);
 
         if (batteryStatus == null) {
-            return new ChargerInfo(false, "Disconnected", "");
+            return new ChargerInfo(false, "Not Connected", "");
         }
 
         int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
@@ -169,7 +169,7 @@ public class ChargingMonitor {
         } else if (status == BatteryManager.BATTERY_STATUS_NOT_CHARGING) {
             statusStr = "Not Charging";
         } else if (status == BatteryManager.BATTERY_STATUS_DISCHARGING) {
-            statusStr = "Disconnected";
+            statusStr = "Not Connected";
         } else {
             statusStr = "Unknown";
         }

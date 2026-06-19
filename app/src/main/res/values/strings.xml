@@ -21,7 +21,7 @@
     
     <!-- Charger Status Messages -->
     <string name="status_connected">Connected</string>
-    <string name="status_disconnected">Disconnected</string>
+    <string name="status_disconnected">Not Connected</string>
     <string name="status_charging">Charging</string>
     <string name="status_not_charging">Not Charging</string>
     <string name="status_unknown">Unknown</string>
